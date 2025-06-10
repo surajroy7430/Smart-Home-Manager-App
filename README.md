@@ -1,2 +1,1 @@
-
 # Smart-Home-Manager-App
