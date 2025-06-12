@@ -6,7 +6,7 @@ export default function LoginPage() {
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex justify-center gap-2 md:justify-start">
           <a href="#" className="flex items-center gap-2 font-medium">
-            <div className="bg-primary flex size-8 items-center justify-center rounded-md">
+            <div className="bg-secondary flex size-8 items-center justify-center rounded-md">
               <img
                 src="https://i.ibb.co/t617Vtf/logo-small.png"
                 alt="logo-small"
