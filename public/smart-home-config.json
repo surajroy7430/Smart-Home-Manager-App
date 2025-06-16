@@ -1,0 +1,37 @@
+{
+  "roomOptions": [
+    "Bedroom",
+    "Living Room",
+    "Home Office",
+    "Kitchen",
+    "Bathroom"
+  ],
+  "deviceOptions": [
+    "Smart TV",
+    "Smart Light",
+    "Thermostat",
+    "Fan",
+    "Lamp",
+    "Speaker",
+    "AC",
+    "Computer",
+    "Oven",
+    "Fridge",
+    "Leak Sensor",
+    "Mirror Display"
+  ],
+  "roomDeviceMap": {
+    "Bedroom": ["Smart Light", "Thermostat", "Speaker", "Lamp", "Fan", "AC"],
+    "Living Room": ["Smart Light", "Smart TV", "Speaker", "Lamp", "Fan", "AC"],
+    "Home Office": ["Smart Light", "Thermostat", "Lamp", "Computer", "AC"],
+    "Kitchen": ["Oven", "Fridge", "Smart Light", "AC"],
+    "Bathroom": ["Smart Light", "Mirror Display", "Leak Sensor"]
+  },
+  "roomImageMap": {
+    "Bedroom": "https://i.ibb.co/svSVkDYF/bedroom.jpg",
+    "Living Room": "https://i.ibb.co/hJrNhSG0/living-room.jpg",
+    "Home Office": "https://i.ibb.co/kV0f5M2s/office.jpg",
+    "Kitchen": "https://i.ibb.co/Xr2W0R5b/kitchen.jpg",
+    "Bathroom": "https://i.ibb.co/r2kDmyJb/bathroom.jpg"
+  }
+}

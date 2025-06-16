@@ -28,6 +28,7 @@ import { auth, db } from "../utils/firebaseConfig";
 import {
   fetchSignInMethodsForEmail,
   createUserWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 
@@ -87,7 +88,7 @@ export function SignupForm({ className, ...props }) {
 
   const onSubmit = async (data) => {
     const age = getAge(data.dob);
-    const role = age <= 12 ? "Child" : "Guest";
+    const role = age <= 12 ? "Child" : "User";
 
     try {
       const methods = await fetchSignInMethodsForEmail(auth, data.email);
@@ -112,8 +113,11 @@ export function SignupForm({ className, ...props }) {
         role,
       });
 
+      await signOut(auth);
+
       form.reset();
       toast.success("Signup successful!", { duration: 1200 });
+      
       setTimeout(() => {
         navigate("/login");
       }, 1200);
@@ -225,7 +229,7 @@ export function SignupForm({ className, ...props }) {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full p-5">
+          <Button type="submit" variant="secondary" className="w-full p-5">
             Signup
           </Button>
         </div>

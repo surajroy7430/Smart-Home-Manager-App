@@ -1,15 +1,19 @@
 import { Route, Routes } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
-import SignupPage from "./pages/SignupPage";
 import { Toaster } from "@/components/ui/sonner";
-import Dashboard from "./pages/Home/Dashboard";
 import LandingPage from "./pages/LandingPage";
-import PrivateRoute from "./routes/PrivateRoute";
 import PublicRoute from "./routes/PublicRoute";
+import LoginPage from "./pages/Auth/LoginPage";
+import SignupPage from "./pages/Auth/SignupPage";
+import PrivateRoute from "./routes/PrivateRoute";
+import Dashboard from "./Home/Dashboard";
+import AddRoom from "./Home/AddRoom";
+import SetupHousehold from "./Home/SetupHousehold";
+import RoomDetails from "./Home/RoomDetails";
 
 function App() {
   return (
     <div className="scrollbar-thin scrollbar-thumb-zinc-500 scrollbar-track-zinc-800 h-screen overflow-y-auto">
+
       <Routes>
         <Route path="/" element={<LandingPage />} />
 
@@ -19,7 +23,10 @@ function App() {
         </Route>
 
         <Route element={<PrivateRoute />}>
+          <Route path="/setup-household" element={<SetupHousehold />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/add-room" element={<AddRoom />} />
+          <Route path="/room/:roomName/:roomId" element={<RoomDetails />} />
         </Route>
       </Routes>
 

@@ -1,9 +1,14 @@
 import { cn } from "@/lib/utils";
 
+import { auth, db } from "../utils/firebaseConfig";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Form,
   FormControl,
@@ -12,17 +17,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { toast } from "sonner";
-import { Link, useNavigate } from "react-router-dom";
 import {
   signInWithPopup,
   GoogleAuthProvider,
   fetchSignInMethodsForEmail,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth, db } from "../utils/firebaseConfig";
 import {
   collection,
   deleteDoc,
@@ -71,13 +71,16 @@ export function LoginForm({ className, ...props }) {
       );
       const user = userCredential.user;
 
-      const docSnap = await getDoc(doc(db, "users", user.uid));
+      const userRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(userRef);
 
-      if (docSnap.exists()) {
-        form.reset();
-        toast.success("Logged in successfully!", { duration: 1200 });
+      form.reset();
+      toast.success("Logged in successfully!", { duration: 1200 });
 
+      if (docSnap.exists() && docSnap.data().smartHome) {
         navigate("/dashboard");
+      } else {
+        navigate("/setup-household");
       }
     } catch (error) {
       toast.error(error.message);
@@ -108,14 +111,20 @@ export function LoginForm({ className, ...props }) {
 
       const docRef = doc(db, "users", googleUser.uid);
       await setDoc(docRef, {
-        name: googleUser.displayName || "No Name",
+        name: googleUser.displayName || "User",
         email: googleUser.email,
-        role: "Guest",
+        role: "User",
         dob: null,
       });
 
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists() && docSnap.data().smartHome) {
+        navigate("/dashboard");
+      } else {
+        navigate("/setup-household");
+      }
+
       toast.success("Logged in with Google!", { duration: 1200 });
-      navigate("/dashboard");
     } catch (error) {
       toast.error(error.message);
     }
@@ -166,7 +175,7 @@ export function LoginForm({ className, ...props }) {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full p-5">
+          <Button type="submit" variant="secondary" className="w-full p-5">
             Login
           </Button>
           <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
