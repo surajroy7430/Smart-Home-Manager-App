@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { Card } from "@/components/ui/card";
-// import { motion } from "motion/react";
+import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
@@ -17,14 +17,14 @@ const ROOM_TYPES = [
   "bathroom",
 ];
 
-// const animationVariants = {
-//   hidden: { opacity: 0, y: 20 },
-//   visible: (i) => ({
-//     opacity: 1,
-//     y: 0,
-//     transition: { delay: i * 0.1, duration: 0.4 },
-//   }),
-// };
+const animationVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.1, duration: 0.4 },
+  }),
+};
 
 const RoomDetails = () => {
   const { roomName, roomId } = useParams();
@@ -111,26 +111,26 @@ const RoomDetails = () => {
             const DeviceComponent = deviceComponentMap[device];
 
             return DeviceComponent ? (
-              // <motion.div
-              //   key={index}
-              //   custom={index}
-              //   initial="hidden"
-              //   animate="visible"
-              //   variants={animationVariants}
-              // >
-                <DeviceComponent key={index} />
-              // </motion.div>
+              <motion.div
+                key={index}
+                custom={index}
+                initial="hidden"
+                animate="visible"
+                variants={animationVariants}
+              >
+                <DeviceComponent />
+              </motion.div>
             ) : (
-              <div
+              <motion.div
                 key={index}
                 className="border p-4 rounded-md text-center text-muted-foreground"
-                // custom={index}
-                // initial="hidden"
-                // animate="visible"
-                // variants={animationVariants}
+                custom={index}
+                initial="hidden"
+                animate="visible"
+                variants={animationVariants}
               >
                 Unknown Device: {device}
-              </div>
+              </motion.div>
             );
           })}
         </div>

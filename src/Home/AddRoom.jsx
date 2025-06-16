@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { MultiSelect } from "@/components/ui/multi-select";
 import { Button } from "@/components/ui/button";
-import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc } from "firebase/firestore";
 import { db } from "../utils/firebaseConfig";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -154,7 +153,7 @@ const AddRoom = () => {
       <Button
         variant="secondary"
         className="w-full"
-        disabled={loading || rooms.length === 0}
+        disabled={loading || rooms.length === 0 || !householdName}
         onClick={handleSubmit}
       >
         {loading ? "Saving..." : "Save Rooms"}
