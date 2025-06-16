@@ -79,7 +79,7 @@ Qubic Home is a smart home management application that allows users to securely 
 
 ---
 
-## 📸 Preview (Optional)
+## 📸 Preview
 
 
 
